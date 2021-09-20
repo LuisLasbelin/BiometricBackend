@@ -2,7 +2,7 @@
   "name": "package",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "mysql_setup.js",
   "scripts": {
     "test": "test"
   },

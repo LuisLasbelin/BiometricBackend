@@ -24,6 +24,6 @@ conn.query(queryString, function(error, result){
     else {
         console.log(result);
     }
-}); 
+});
 
 conn.end();
