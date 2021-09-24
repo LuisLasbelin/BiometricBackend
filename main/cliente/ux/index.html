@@ -7,8 +7,18 @@
 <body>
 <script type="text/javascript" src="../logica/proxy.js"></script>
 
-<input type = "button" onclick = "getMedidasDeSensor()" value = "Get medidas por sensor">  
+<div>GET</div>
+<input type = "button" onclick = "getMedidasDeSensor()" value = "Get medidas por sensor">
+<input type = "button" onclick = "getMedidasDeUsuario()" value = "Get medidas por
+Usuario">
+<input type = "button" onclick = "getSensoresDeUsuario()" value = "Get sensores por
+Usuario">
+  
+<div>POST</div>
 <input type = "button" onclick = "postMedida()" value = "Post medida">  
+
+<div>Usuario</div>
+<input type="text" id="usuario"></input>
 <div>Sensor</div>
 <input type="number" id="sensorNumero"></input>
 <div>Valor</div>
