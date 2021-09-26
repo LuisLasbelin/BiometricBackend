@@ -127,18 +127,17 @@ async function Login() {
   const correo = document.getElementById("correo").value;
   const pass = document.getElementById("password").value;
   
-  fetch(url + `api/auth/` + correo +"/"+ pass, {method: 'POST'})
-  .then(response => {
-      if (response.ok) {
-        response.json()
-        .then(json => {
-            // Tomamos los datos y convertimos a un objeto Medida
-            document.getElementById("cuerpo").innerHTML = JSON.stringify(json);
-        });
-      } else {
-        document.getElementById("cuerpo").innerHTML = "Error 404";
-      }
-    });
+  fetch(url + `api/auth/` + correo +"/"+ pass, {method: 'POST'}).then(response => {
+    if (response.ok) {
+      response.json()
+      .then(json => {
+          // Tomamos los datos y convertimos a un objeto Medida
+          document.getElementById("cuerpo").innerHTML = JSON.stringify(json);
+      });
+    } else {
+      document.getElementById("cuerpo").innerHTML = "Error 404";
+    }
+  });
 }
 
 //#endregion

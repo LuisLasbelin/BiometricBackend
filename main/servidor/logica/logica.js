@@ -94,6 +94,25 @@ class Logica {
             });
         });
     }
+
+    /*
+    * Login
+    */
+    static postLogin(pool, email, password) {
+ 
+        return new Promise(result => {
+            
+            pool.query('SELECT * FROM usuarios WHERE correo = ? AND contraseña = ?', [email, password], (err, response) => {
+                if(err) {
+                    console.error(err);
+                    return;
+                }
+                // Medida creada
+                result(response);
+            });
+        });
+        
+    }
     //#endregion
 }
 

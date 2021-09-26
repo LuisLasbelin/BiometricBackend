@@ -10,8 +10,10 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
+// Crea una sesion al iniciar el servidor
 app.use(session({
-	secret: 'secret',
+    // Clave de sesion
+	secret: '8868',
 	resave: true,
 	saveUninitialized: true
 }));
@@ -23,6 +25,9 @@ const pool = mysql.createPool({
     database : "biometric_database"
 });
 
+// --------------------------------------------------------------
+//#region GET
+// --------------------------------------------------------------
 /*
 * app.get
 * @param URL
@@ -32,9 +37,6 @@ app.get('/', (request, response) => {
     response.send('This is a message from the server');
 });
 
-// --------------------------------------------------------------
-//#region GET
-// --------------------------------------------------------------
 /*
 * Recibir medidas por la ID de un sensor
 * @param URL
@@ -136,20 +138,20 @@ app.post('/api/sensor/:latitud/:longitud/:usuario', async (req, res) => {
 * @param URL
 * @param callback function
 */
-app.get('api/auth/:correo/:pass', async (request, response) => {
+app.post('/api/auth/:correo/:pass', async (request, response, next) => {
 
 	let correo = request.params.correo;
 	let pass = request.params.pass;
-
-    var queryString = "SELECT * FROM usuarios WHERE correo = '"+correo+"' AND contraseña = '"+pass+"'";
-
     // Recibe las medidas
-    const medidas = await Logica.getSensoresDeUsuario(pool, queryString);
+    const rows = await Logica.postLogin(pool, correo, pass);
     // Se asegura de que no haya errores
-    if(!medidas) response.status(404).send(`No hay medidas`);
+    if(!rows) response.status(404).send(`No se puede hacer login`);
+    // Si hay más de una fila se ha iniciado sesion correctamente
+    if(rows > 1) {
+        request.session.usuario = correo;
+    }
     // Devuelve la lista de medidas
-    response.send(medidas);
-
+    response.send(rows);
 });
 
 //#endregion
