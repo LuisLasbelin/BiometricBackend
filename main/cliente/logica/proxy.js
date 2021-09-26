@@ -67,7 +67,67 @@ async function postMedida() {
   const longitud = document.getElementById("longitud").value;
   const valor = document.getElementById("valor").value;
 
-  fetch(url + `api/medida/sensor` + valor + "/" + latitud + "/" + longitud + "/" + sensor, {method: 'POST'})
+  fetch(url + `api/medida/` + valor + "/" + latitud + "/" + longitud + "/" + sensor, {method: 'POST'})
+  .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(json => {
+            // Tomamos los datos y convertimos a un objeto Medida
+            document.getElementById("cuerpo").innerHTML = JSON.stringify(json);
+        });
+      } else {
+        document.getElementById("cuerpo").innerHTML = "Error 404";
+      }
+    });
+}
+
+async function postUsuario() {
+  const usuario = document.getElementById("usuario").value;
+  const correo = document.getElementById("correo").value;
+  const password = document.getElementById("password").value;
+
+  fetch(url + `api/usuario/` + usuario + "/" + correo + "/" + password, {method: 'POST'})
+  .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(json => {
+            // Tomamos los datos y convertimos a un objeto Medida
+            document.getElementById("cuerpo").innerHTML = JSON.stringify(json);
+        });
+      } else {
+        document.getElementById("cuerpo").innerHTML = "Error 404";
+      }
+    });
+}
+
+async function postSensor() {
+  const usuario = document.getElementById("usuario").value;
+  const latitud = document.getElementById("latitud").value;
+  const longitud = document.getElementById("longitud").value;
+
+  fetch(url + `api/sensor/` + latitud + "/" + longitud + "/" + usuario, {method: 'POST'})
+  .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(json => {
+            // Tomamos los datos y convertimos a un objeto Medida
+            document.getElementById("cuerpo").innerHTML = JSON.stringify(json);
+        });
+      } else {
+        document.getElementById("cuerpo").innerHTML = "Error 404";
+      }
+    });
+}
+
+
+/*
+* Login()
+*/
+async function Login() {
+  const correo = document.getElementById("correo").value;
+  const pass = document.getElementById("password").value;
+  
+  fetch(url + `api/auth/` + correo +"/"+ pass, {method: 'POST'})
   .then(response => {
       if (response.ok) {
         response.json()
