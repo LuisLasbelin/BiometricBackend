@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------
+// Autor: Luis Belloch
+// Descripcion: Base de datos de Medidas falsa para los tests 
+// Creado: 06/10/2021
+// Estado: DONE
+// -----------------------------------------------------------------
+
 const medidas = [
     {
       id: 1,
