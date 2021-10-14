@@ -9,29 +9,8 @@ import { Router } from 'express';
 import MedidasControlador from '../controladores/medidasControlador.js';
 import SensoresControlador from '../controladores/SensoresControlador.js';
 import UsuariosControlador from '../controladores/UsuariosControlador.js';
+import "babel-polyfill"; //regeneratorRuntime error fix
 const routes = Router();
-// -----------------------------------------------------------------
-//#region Test
-// -----------------------------------------------------------------
-/**
- * Recibe todas las medidas de la base de datos falsa
- *
- * @param {text} URL
- * @param {text} callback function
- * @return {text} JSON con las medidas
- */
-routes.get('/test', MedidasControlador.getTodasLasMedidasTest);
-/**
- * Recibe una medida de la base de datos falsa
- *
- * @param {text} URL
- * @param {text} callback function
- * @return {text} JSON con la medida
- */
-routes.get('/test/:id', MedidasControlador.getUnaMedidaTest);
-// -----------------------------------------------------------------
-//#endregion
-// -----------------------------------------------------------------
 // -----------------------------------------------------------------
 //#region GET
 // -----------------------------------------------------------------
@@ -62,7 +41,7 @@ routes.get('/medidas/sensor/:sensor', async (request, response) => {
     // Recibe las medidas
     const medidas = await MedidasControlador.getMedidasDeSensor(request.params.sensor);
     // Se asegura de que no haya errores
-    if(!medidas) response.status(404).send(`No hay medidas`);
+    if(!medidas) response.status(404).send(`No hay medidas para el sensor ` + request.params.sensor);
     // Devuelve la lista de medidas
     response.send(medidas);
 });
@@ -78,7 +57,7 @@ routes.get('/medidas/usuario/:usuario', async (request, response) => {
     // Recibe las medidas
     const medidas = await MedidasControlador.getMedidasDeUsuario(request.params.usuario);
     // Se asegura de que no haya errores
-    if(!medidas) response.status(404).send(`No hay medidas`);
+    if(!medidas) response.status(404).send(`No hay medidas para el usuario ` + request.params.usuario);
     // Devuelve la lista de medidas
     response.send(medidas);
 });
@@ -110,27 +89,97 @@ routes.get('/sensores/usuario/:usuario', async (request, response) => {
     // Recibe las medidas
     const medidas = await SensoresControlador.getSensoresDeUsuario(request.params.usuario);
     // Se asegura de que no haya errores
-    if(!medidas) response.status(404).send(`No hay medidas`);
+    if(!medidas) response.status(404).send(`No hay sensores para el usuario ` + request.params.usuario);
     // Devuelve la lista de medidas
     response.send(medidas);
 });
 
 /**
- * Recibe todos los sensores de la base de datos
+ * Recibe todos los usuarios de la base de datos
  *
  * @param {text} URL
  * @param {text} callback function
- * @return {text} JSON con los usuario
+ * @return {text} JSON con los usuarios
  */
 routes.get('/usuarios', async (request, response) => {
     // Recibe los sensores
     const sensores = await UsuariosControlador.getTodosLosUsuarios();
     // Se asegura de que no haya errores
-    if(!sensores) response.status(404).send(`No hay sensores`);
+    if(!sensores) response.status(404).send(`No hay usuarios`);
     // Devuelve la lista de sensores
     response.send(sensores);
 });
 
+/**
+ * Recibe un usuario segun la ID
+ *
+ * @param {text} URL
+ * @param {text} callback function
+ * @return {text} JSON con el usuario
+ */
+ routes.get('/usuario/:id', async (request, response) => {
+    // Recibe los sensores
+    const sensores = await UsuariosControlador.getUsuario(request.params.id);
+    // Se asegura de que no haya errores
+    if(!sensores) response.status(404).send(`No hay usuario con la ID ` + request.params.id);
+    // Devuelve la lista de sensores
+    response.send(sensores);
+});
+
+
+// -----------------------------------------------------------------
+//#endregion
+// -----------------------------------------------------------------
+// -----------------------------------------------------------------
+//#region POST
+// -----------------------------------------------------------------
+/**
+ * Envia una medida a la base de datos para añadirla
+ *
+ * @param {text} URL
+ * @param {text} callback function
+ * @return {text} JSON con la medida enviada
+ */
+routes.post('/medida/:valor/:latitud/:longitud/:sensor', async (request, response) => {
+        // Recibe los sensores
+        const medida = await MedidasControlador.postMedida(request.params.valor, request.params.latitud, request.params.longitud, request.params.sensor);
+        // Se asegura de que no haya errores
+        if(!medida) response.status(404).send(`No se ha creado la medida`);
+        // Devuelve la lista de sensores
+        response.send(medida);
+});
+
+/**
+ * Envia un usuario a la base de datos para añadirlo
+ *
+ * @param {text} URL
+ * @param {text} callback function
+ * @return {text} JSON con el usuario enviado
+ */
+ routes.post('/usuario/:nombre/:correo/:password', async (request, response) => {
+    // Recibe los sensores
+    const usuario = await UsuariosControlador.postUsuario(request);
+    // Se asegura de que no haya errores
+    if(!usuario) response.status(404).send(`No se ha creado el usuario`);
+    // Devuelve la lista de sensores
+    response.send(usuario);
+});
+
+/**
+ * Envia un sensor a la base de datos para añadirlo
+ *
+ * @param {text} URL
+ * @param {text} callback function
+ * @return {text} JSON con el sensor enviado
+ */
+ routes.post('/sensor/:latitud/:longitud/:usuario', async (request, response) => {
+    // Recibe los sensores
+    const sensor = await SensoresControlador.postSensor(request);
+    // Se asegura de que no haya errores
+    if(!sensor) response.status(404).send(`No se ha creado el sensor`);
+    // Devuelve la lista de sensores
+    response.send(sensor);
+});
 
 // -----------------------------------------------------------------
 //#endregion

@@ -119,6 +119,41 @@ class MedidasControlador {
       // -----------------------------------------------------------------
       //#endregion
       // -----------------------------------------------------------------
+      // -----------------------------------------------------------------
+      //#region POST
+      // -----------------------------------------------------------------
+      /**
+       * Crea una nueva medida en la base de datos con los datos recibidos
+       *
+       * @param {number} valor
+       * @param {number} latitud
+       * @param {number} longitud
+       * @param {number} id del sensor
+       * @return {text} JSON con la medida
+       */
+       static postMedida(valor, latitud, longitud, id) {
+            
+            return new Promise(result => {
+                  
+                  // ID es NULL porque la base da datos lo asigna como valor autoincremental
+                  const queryString = "INSERT INTO `medidas` (`ID`, `Valor`, `Latitud`, `Longitud`, `Fecha`, `Sensor`) VALUES (NULL, '"+valor+"', '"+latitud+"', '"+longitud+"', '2021-10-11 13:16:29.000000', '"+id+"');"
+    
+                  pool.getConnection((err, connection) => {
+                        if(err) throw err;
+                        console.log('connected as id ' + connection.threadId);
+                        connection.query(queryString, (err, rows) => 
+                        {
+                              connection.release(); // devuelve la conexion al pool
+                              // Si hay un error devuelve el error
+                              if(err) throw err;
+                              result(rows);
+                        });
+                  });
+            });
+      }
+      // -----------------------------------------------------------------
+      //#endregion
+      // -----------------------------------------------------------------
 
 }
 export default MedidasControlador;

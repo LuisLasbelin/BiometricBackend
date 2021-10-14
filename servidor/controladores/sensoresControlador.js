@@ -62,6 +62,38 @@ class SensoresControlador {
     // -----------------------------------------------------------------
     //#endregion
     // -----------------------------------------------------------------
+    // -----------------------------------------------------------------
+    //#region GET
+    // -----------------------------------------------------------------
+    /**
+     * Crea un nuevo sensor en la base de datos con los datos recibidos
+     *
+     * @param {text} objeto de datos
+     * @return {text} JSON con el sensor
+     */
+    static postSensor(datos) {
+            
+        return new Promise(result => {
+
+            // ID es NULL porque la base da datos lo asigna como valor autoincremental
+            const queryString = "INSERT INTO `sensores` (`ID`, `Latitud`, `Longitud`, `Usuario`) VALUES (NULL, '"+datos.params.latitud+"', '"+datos.params.longitud+"', '"+datos.params.usuario+"');"
+
+            pool.getConnection((err, connection) => {
+                if(err) throw err;
+                console.log('connected as id ' + connection.threadId);
+                connection.query(queryString, (err, rows) => 
+                {
+                        connection.release(); // devuelve la conexion al pool
+                        // Si hay un error devuelve el error
+                        if(err) throw err;
+                        result(rows);
+                });
+            });
+        });
+    } 
+    // -----------------------------------------------------------------
+    //#endregion
+    // -----------------------------------------------------------------
 }
 
 export default SensoresControlador;
