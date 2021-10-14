@@ -4,6 +4,11 @@ const url = new URL("http://localhost:3000/")
 //#region GET
 // --------------------------------------------------------------
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function getMedidas() {
 
   fetch(url + `medidas`, {method: 'GET'})
@@ -20,6 +25,11 @@ async function getMedidas() {
     });
 }
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function getMedidasDeSensor() {
     const sensor = document.getElementById("sensorNumero").value;
 
@@ -37,6 +47,11 @@ async function getMedidasDeSensor() {
       });
 }
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function getMedidasDeUsuario() {
   const usuario = document.getElementById("usuario").value;
 
@@ -54,6 +69,11 @@ async function getMedidasDeUsuario() {
     });
 }
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function getSensoresDeUsuario() {
   const usuario = document.getElementById("usuario").value;
 
@@ -77,6 +97,11 @@ async function getSensoresDeUsuario() {
 //#region POST
 // --------------------------------------------------------------
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function postMedida() {
   const sensor = document.getElementById("sensorNumero").value;
   const latitud = document.getElementById("latitud").value;
@@ -97,6 +122,11 @@ async function postMedida() {
     });
 }
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function postUsuario() {
   const usuario = document.getElementById("usuario").value;
   const correo = document.getElementById("correo").value;
@@ -116,6 +146,11 @@ async function postUsuario() {
     });
 }
 
+/**
+ * Recibe las medidas de la base de datos
+ *
+ * @return {text} JSON con todas las medidas
+ */
 async function postSensor() {
   const usuario = document.getElementById("usuario").value;
   const latitud = document.getElementById("latitud").value;
@@ -133,27 +168,6 @@ async function postSensor() {
         document.getElementById("cuerpo").innerHTML = "Error 404";
       }
     });
-}
-
-
-/*
-* Login()
-*/
-async function Login() {
-  const correo = document.getElementById("correo").value;
-  const pass = document.getElementById("password").value;
-  
-  fetch(url + `auth/` + correo +"/"+ pass, {method: 'POST'}).then(response => {
-    if (response.ok) {
-      response.json()
-      .then(json => {
-          // Tomamos los datos y convertimos a un objeto Medida
-          document.getElementById("cuerpo").innerHTML = JSON.stringify(json);
-      });
-    } else {
-      document.getElementById("cuerpo").innerHTML = "Error 404";
-    }
-  });
 }
 
 //#endregion

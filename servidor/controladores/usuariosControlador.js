@@ -60,6 +60,41 @@ class UsuariosControlador {
             }); 
         });
     }
+    // -----------------------------------------------------------------
+    //#endregion
+    // -----------------------------------------------------------------
+    // -----------------------------------------------------------------
+    //#region POST
+    // -----------------------------------------------------------------
+    /**
+     * Crea un nuevo usuario en la base de datos con los datos recibidos
+     *
+     * @param {text} objeto de datos
+     * @return {text} JSON con la medida
+     */
+     static postUsuario(datos) {
+            
+        return new Promise(result => {
+
+              // ID es NULL porque la base da datos lo asigna como valor autoincremental
+              const queryString = "INSERT INTO `usuarios` (`ID`, `Correo`, `Contraseña`, `Nombre`) VALUES (NULL, '"+datos.params.correo+"', '"+datos.params.password+"', '"+datos.params.nombre+"');"
+
+              pool.getConnection((err, connection) => {
+                    if(err) throw err;
+                    console.log('connected as id ' + connection.threadId);
+                    connection.query(queryString, (err, rows) => 
+                    {
+                          connection.release(); // devuelve la conexion al pool
+                          // Si hay un error devuelve el error
+                          if(err) throw err;
+                          result(rows);
+                    });
+              });
+        });
+    }
+    // -----------------------------------------------------------------
+    //#endregion
+    // -----------------------------------------------------------------
 }
 
 export default UsuariosControlador;
