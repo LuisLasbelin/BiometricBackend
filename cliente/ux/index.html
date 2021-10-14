@@ -1,41 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Title of the document</title>
+<title>Mapa Biometric</title>
+
+<link rel="stylesheet" type="text/css" href="style/mainStyle.css" />
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 
 <body>
-<script type="text/javascript" src="../logica/proxy.js"></script>
 
-<div>GET</div>
 <input type = "button" onclick = "getMedidas()" value = "Todas las medidas">
-<input type = "button" onclick = "getMedidasDeSensor()" value = "Get medidas por sensor">
-<input type = "button" onclick = "getMedidasDeUsuario()" value = "Get medidas por
-Usuario">
-<input type = "button" onclick = "getSensoresDeUsuario()" value = "Get sensores por
-Usuario">
-  
-<div>POST</div>
-<input type = "button" onclick = "postMedida()" value = "Post medida">  
-<input type = "button" onclick = "postUsuario()" value = "Post usuario">  
-<input type = "button" onclick = "postSensor()" value = "Post sensor">  
-<input type = "button" onclick = "Login()" value = "Login">  
 
-<div>Usuario</div>
-<input type="text" id="usuario"></input>
-<div>Correo</div>
-<input type="text" id="correo"></input>
-<div>Contraseña</div>
-<input type="password" id="password"></input>
-<div>Sensor</div>
-<input type="number" id="sensorNumero"></input>
-<div>Valor</div>
-<input type="number" id="valor"></input>
-<div>Latitud</div>
-<input type="number" id="latitud"></input>
-<div>Longitud</div>
-<input type="number" id="longitud"></input>
-<div id="cuerpo"></div>
+<div id="map"></div>
+
+<script src="../logica/proxy.js"></script>
+
 </body>
 
 </html>
