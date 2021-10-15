@@ -2,7 +2,7 @@
 // Autor: Luis Belloch
 // Descripcion: Almacena las URL para hacer fetch de la API
 // Creado: 06/10/2021
-// Estado: WIP
+// Estado: DONE
 // -----------------------------------------------------------------
 
 import { Router } from 'express';
@@ -172,7 +172,7 @@ routes.post('/medida/:valor/:latitud/:longitud/:sensor', async (request, respons
  * @param {text} callback function
  * @return {text} JSON con el sensor enviado
  */
- routes.post('/sensor/:latitud/:longitud/:usuario', async (request, response) => {
+ routes.post('/sensor/:id/:latitud/:longitud/:usuario', async (request, response) => {
     // Recibe los sensores
     const sensor = await SensoresControlador.postSensor(request);
     // Se asegura de que no haya errores
