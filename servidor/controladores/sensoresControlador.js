@@ -2,7 +2,6 @@
 // Autor: Luis Belloch
 // Descripcion: Funciones para los objetos Sensor de la API
 // Creado: 07/10/2021
-// Estado: WIP
 // -----------------------------------------------------------------
 
 import pool from '../dbconfig.js';
@@ -76,7 +75,7 @@ class SensoresControlador {
         return new Promise(result => {
 
             // ID es NULL porque la base da datos lo asigna como valor autoincremental
-            const queryString = "INSERT INTO `sensores` (`ID`, `Latitud`, `Longitud`, `Usuario`) VALUES (NULL, '"+datos.params.latitud+"', '"+datos.params.longitud+"', '"+datos.params.usuario+"');"
+            const queryString = "INSERT INTO `sensores` (`ID`, `Latitud`, `Longitud`, `Usuario`) VALUES ('"+datos.params.id+"', '"+datos.params.latitud+"', '"+datos.params.longitud+"', '"+datos.params.usuario+"');"
 
             pool.getConnection((err, connection) => {
                 if(err) throw err;

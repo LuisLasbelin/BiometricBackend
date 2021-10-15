@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------
+// Autor: Luis Belloch
+// Descripcion: Tests de la base de datos y la API
+// Creado: 05/10/2021
+// -----------------------------------------------------------------
+
 // Import the dependencies for testing
 import chai from 'chai';
 import chaiHttp from 'chai-http';

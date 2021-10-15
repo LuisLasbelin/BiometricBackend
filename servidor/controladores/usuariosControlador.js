@@ -2,7 +2,6 @@
 // Autor: Luis Belloch
 // Descripcion: Funciones para los objetos Usuario de la API
 // Creado: 07/10/2021
-// Estado: WIP
 // -----------------------------------------------------------------
 
 import pool from '../dbconfig.js';

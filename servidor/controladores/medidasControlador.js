@@ -2,7 +2,6 @@
 // Autor: Luis Belloch
 // Descripcion: Funciones para los objetos Medida de la base de datos
 // Creado: 06/10/2021
-// Estado: DONE
 // -----------------------------------------------------------------
 
 import medidas from '../dummy/medidas.js';
