@@ -11,7 +11,7 @@ const cors = require("cors")
 // Instantiate express
 const app = express();
 // Set our port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 // Configure app to user bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
