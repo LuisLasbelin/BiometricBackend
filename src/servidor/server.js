@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------
+// Autor: Luis Belloch
+// Descripcion: Servidor de la API
+// Creado: 15/09/2021
+// -----------------------------------------------------------------
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './rutas/index';
