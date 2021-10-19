@@ -42,6 +42,23 @@ routes.get('/medidas', async (request, response) => {
     response.send(medidas);
 });
 
+/**
+ * Recibe la ultima medida de la base de datos
+ *
+ * @param {text} URL
+ * @param {text} callback function
+ * @return {text} JSON con las medidas
+ * 
+ */
+routes.get('/medida/ultima', async (request, response) => {
+    // Recibe las medidas
+    const medidas = await MedidasControlador.obtenerUltimaMedida();
+    // Se asegura de que no haya errores
+    if(!medidas) response.status(404).send(`No hay medidas`);
+    // Devuelve la lista de medidas
+    response.send(medidas);
+});
+
 // -----------------------------------------------------------------
 //#endregion
 // -----------------------------------------------------------------
