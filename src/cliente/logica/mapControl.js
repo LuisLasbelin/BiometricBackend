@@ -21,17 +21,6 @@ class mapControl {
     static geojson = {
         type: 'FeatureCollection',
         features: [
-        {
-            type: 'Feature',
-            geometry: {
-            type: 'Point',
-            coordinates: [0, 0]
-            },
-            properties: {
-            title: 'Mapbox',
-            description: 'Prueba'
-            }
-        },
         ]
     };
       
@@ -57,7 +46,7 @@ class mapControl {
           });
         
         // add markers to map
-        for (const { geometry, properties } of geojson.features) {
+        for (const { geometry, properties } of mapControl.geojson.features) {
             // create a HTML element for each feature
             const el = document.createElement('div');
             el.className = 'marker';
