@@ -4,44 +4,26 @@
 // Creado: 06/10/2021
 // -----------------------------------------------------------------
 
-import medidas from '../dummy/medidas.js';
 import pool from '../dbconfig.js';
 
 class MedidasControlador {
       // -----------------------------------------------------------------
-      //#region Test
-      // -----------------------------------------------------------------
-      // obtener todas las medidas
-      static obtenerTodasLasMedidasTest(req, res) {
-            return res.status(200).json({
-                  medidas,
-                  message: "Todas las medidas",
-            });
-      }
-      // obtener todas las medidas
-      static obtenerUnaMedidaTest(req, res) {
-            const buscaMedida = medidas.find(medida => medida.id === parseInt(req.params.id, 10));
-            if (buscaMedida) {
-                  return res.status(200).json({
-                        medida: buscaMedida,
-                        message: "Una sola medida",
-                  });
-            }
-            return res.status(404).json({
-                  message: "Medida no encontrada",
-            });
-      }
-      // -----------------------------------------------------------------
-      //#endregion
-      // -----------------------------------------------------------------
-
-      // -----------------------------------------------------------------
       //#region obtener
       // -----------------------------------------------------------------
       /**
+       * obtenerTodasLasMedidas -> [JSON]
        * Devuelve un JSON con todas las medidas
        *
        * @return {text} JSON con las medidas
+       * 
+       * Ejemplo de objeto medida:
+       * {
+            "valor":222,
+            "latitud":"-0.24263245",
+            "longitud":"-0.4252626",
+            "fecha":"2021-10-17 12:34:14.000000",
+            "sensor_id":12345
+            }
        */
       static obtenerTodasLasMedidas() {
             // Recibe las medidas
@@ -63,58 +45,6 @@ class MedidasControlador {
             });
       }
       
-      /**
-       * Devuelve un JSON con las medidas de un sensor id
-       *
-       * @param {number} id del sensor
-       * @return {text} JSON con las medidas del sensor
-       */
-      static obtenerMedidasDeSensor(id) {
-            
-            return new Promise(result => {
-
-                  var queryString = "SELECT * from medidas where medidas.Sensor = " + id;
-
-                  pool.getConnection((err, connection) => {
-                        if(err) throw err;
-                        console.log('connected as id ' + connection.threadId);
-                        connection.query(queryString, (err, rows) => 
-                        {
-                              connection.release(); // devuelve la conexion al pool
-                              // Si hay un error devuelve el error
-                              if(err) throw err;
-                              result(rows);
-                        });
-                  });
-            });
-      }
-
-      /**
-       * Devuelve un JSON con las medidas de un usuario id
-       *
-       * @param {number} id del usuario
-       * @return {text} JSON con las medidas del usuario
-       */
-      static obtenerMedidasDeUsuario(id) {
-            
-            return new Promise(result => {
-    
-                  var queryString = 'SELECT medidas.ID, medidas.Valor, medidas.Latitud, medidas.Longitud, medidas.Fecha, medidas.Sensor FROM medidas, sensores, usuarios WHERE medidas.Sensor = sensores.ID AND sensores.Usuario = usuarios.ID AND usuarios.ID = "' + id + '"';
-    
-                  pool.getConnection((err, connection) => {
-                        if(err) throw err;
-                        console.log('connected as id ' + connection.threadId);
-                        connection.query(queryString, (err, rows) => 
-                        {
-                              connection.release(); // devuelve la conexion al pool
-                              // Si hay un error devuelve el error
-                              if(err) throw err;
-                              result(rows);
-                        });
-                  });
-            });
-      }
-      
       // -----------------------------------------------------------------
       //#endregion
       // -----------------------------------------------------------------
@@ -122,10 +52,21 @@ class MedidasControlador {
       //#region guardar
       // -----------------------------------------------------------------
       /**
+       * medida:Medida -> guardarMedida() -> respuesta:JSON
+       * 
        * Crea una nueva medida en la base de datos con los datos recibidos
        *
        * @param {text} json con los datos de la medida
        * @return {text} JSON con la medida
+       * 
+       * Ejemplo de objeto medida:
+       * {
+            "valor":222,
+            "latitud":"-0.24263245",
+            "longitud":"-0.4252626",
+            "fecha":"2021-10-17 12:34:14.000000",
+            "sensor_id":12345
+            }
        */
       static guardarMedida(medida) {
             
