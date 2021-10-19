@@ -37,6 +37,29 @@ async function obtenerTodasLasMedidas() {
     });
 }
 
+/**
+ * obtenerUltimaMedida() -> JSON con la medida
+ * Recibe la ultima medida de la base de datos
+ *
+ * 
+ */
+ async function obtenerUltimaMedida() {
+
+  fetch(url + `medida/ultima`, {method: 'get'})
+  .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(json => {
+          mapControl.addMarkers(json);
+          return json;
+        });
+        
+      } else {
+        document.getElementById("cuerpo").innerHTML = "Error 404";
+      }
+    });
+}
+
 //#endregion
 
 export default obtenerTodasLasMedidas;
